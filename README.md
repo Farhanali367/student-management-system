@@ -39,6 +39,7 @@ student-management-system/
 ├── .gitignore
 ├── README.md
 └── .vscode/
+'''
 
 ▶️ How to Run
 1. Clone the repository
