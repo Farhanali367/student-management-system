@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a, b, c;   // multiple int variables
+    a = 10; 
+    b = 20; 
+    c = 30;
+
+    cout << a << " " << b << " " << c << endl;
+    return 0;
+}
+#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 1, y = 2, z = 3;   // declare and assign together
+    double p = 3.14, q = 2.71; // multiple doubles
+
+    cout << x << " " << y << " " << z << endl;
+    cout << p << " " << q << endl;
+    return 0;
+}
