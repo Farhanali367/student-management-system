@@ -1,129 +1,159 @@
 # 🎓 Student Management System
 
-A simple and beginner-friendly **Student Management System** developed using **C++**.
+A full-stack **Student Management System** built with a modern web dashboard and REST API backend. The project allows users to manage student records, marks, and results through a simple and responsive interface.
 
-This project allows users to add students, display student records, search students by ID, and manage student information through a simple menu-driven interface.
+## 🌐 Live Demo
 
----
+**Live Website:**  
+https://farhanali367.github.io/student-management-system/
 
-## 🚀 Features
+## ✨ Features
 
-- ➕ Add Student
-- 📋 Display All Students
-- 🔍 Search Student by ID
-- 📊 Store Student Marks
-- 🖥️ Simple Menu-Driven Interface
-- ⚡ Fast and Easy to Use
-- 👨‍💻 Beginner-Friendly C++ Project
-
----
+- ➕ Add new students
+- 📋 View all student records
+- 🔍 Search students by ID, name, or course
+- ✏️ Edit student information
+- 🗑️ Delete student records
+- 📊 View student marks
+- ✅ Automatic PASS / FAIL result
+- 📈 Dashboard statistics
+- 🔗 REST API integration
+- 🌍 Live frontend and backend deployment
 
 ## 🛠️ Technologies Used
 
-- **C++**
-- Structures
-- Functions
-- Arrays / Vectors
-- Loops
-- Conditional Statements
-- Switch Case
-- Basic Input / Output
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
 
----
+### Backend
+- Python
+- FastAPI
+- SQLAlchemy
+- SQLite
+
+### Programming / Tools
+- C++
+- Git
+- GitHub
+- GitHub Pages
+- Render
+- VS Code
 
 ## 📁 Project Structure
 
 ```text
 student-management-system/
 │
+├── backened/
+│   ├── main.py
+│   ├── database.py
+│   ├── requirements.txt
+│   ├── index.html
+│   └── students.db
+│
 ├── src/
 │   └── main.cpp
 │
-├── .gitignore
+├── index.html
 ├── README.md
-└── .vscode/
+└── .gitignore
 ```
 
----
+## 🔌 API Endpoints
 
-## ▶️ How to Run
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/students` | Get all students |
+| POST | `/students` | Add a new student |
+| PUT | `/students/{id}` | Update a student |
+| DELETE | `/students/{id}` | Delete a student |
 
-### 1. Clone the Repository
+## 🚀 Run the Backend Locally
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Farhanali367/student-management-system.git
-```
-
-### 2. Open the Project
-
-```bash
 cd student-management-system
 ```
 
-### 3. Compile the Program
+### 2. Open the backend folder
 
 ```bash
-g++ src/main.cpp -o student_management
+cd backened
 ```
 
-### 4. Run the Program
-
-**Windows:**
+### 3. Create a virtual environment
 
 ```bash
-student_management.exe
+python -m venv venv
 ```
 
-**Linux / macOS:**
+### 4. Install dependencies
 
 ```bash
-./student_management
+pip install -r requirements.txt
 ```
 
----
+### 5. Start the FastAPI server
 
-## 💻 Example
+```bash
+python -m uvicorn main:app --reload
+```
+
+### 6. Open API documentation
 
 ```text
-===== Student Management System =====
-
-1. Add Student
-2. Display Students
-3. Search Student
-4. Exit
-
-Enter your choice:
+http://127.0.0.1:8000/docs
 ```
 
----
+## 🌍 Deployment
 
-## 🎯 Learning Purpose
+### Frontend
+Deployed on **GitHub Pages**
 
-This project was created to practice basic **C++ programming concepts** such as:
+### Backend
+Deployed on **Render**
 
-- Variables
-- Data Types
-- Functions
-- Structures
-- Loops
-- Conditional Statements
-- Arrays / Vectors
-- Switch Case
-- User Input and Output
+The frontend communicates with the live FastAPI backend through REST API requests.
 
----
+## 📊 Project Highlights
+
+- Full-stack web application
+- CRUD operations for student records
+- REST API architecture
+- SQLite database
+- Search functionality
+- Student result calculation
+- GitHub version control
+- Cloud deployment
+- Responsive dashboard interface
+
+## 🎯 Learning Outcomes
+
+Through this project, I practiced:
+
+- C++ programming
+- Python development
+- FastAPI
+- REST APIs
+- SQLAlchemy
+- SQLite database management
+- HTML, CSS and JavaScript
+- CRUD operations
+- Git and GitHub
+- Web deployment
 
 ## 👨‍💻 Author
 
-**Farhan Ali**
-
+**Mohd Farhan**  
 BTech CSE Student
 
-GitHub:  
+**GitHub:**  
 https://github.com/Farhanali367
 
 ---
 
-## ⭐ Support
-
-If you find this project useful, consider giving it a ⭐ on GitHub.
+⭐ **If you find this project useful, consider giving it a star!**
