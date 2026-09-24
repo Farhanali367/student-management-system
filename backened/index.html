@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Management System</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}.container{width:min(1150px,92%);margin:auto}
+header{background:linear-gradient(135deg,#1d4ed8,#4f46e5);color:#fff;padding:22px 0}.top{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.brand h1{font-size:26px}.brand p{opacity:.85;margin-top:4px}nav{display:flex;gap:8px;flex-wrap:wrap}nav button{border:0;background:#ffffff22;color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer}nav button.active,nav button:hover{background:#fff;color:#1d4ed8}
+main{padding:30px 0 50px}.hero,.card,.form-card,.table-wrap{background:#fff;border-radius:16px;box-shadow:0 5px 20px #0000000d}.hero{padding:28px;margin-bottom:22px}.hero h2{font-size:30px;margin-bottom:8px}.hero p{color:#667085;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}.card{padding:20px}.label{color:#667085;font-size:14px}.value{font-size:28px;font-weight:700;margin-top:8px}
+.section{display:none}.section.active{display:block}.form-card{padding:24px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}label{font-weight:600;font-size:14px;display:block;margin-bottom:7px}
+input{width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:9px;font-size:15px;outline:none}input:focus{border-color:#4f46e5}.btn{border:0;padding:11px 17px;border-radius:9px;cursor:pointer;font-weight:600}.primary{background:#4f46e5;color:#fff}.secondary{background:#e8eefc;color:#1d4ed8}.danger{background:#fee2e2;color:#b91c1c}.form-actions{margin-top:18px;display:flex;gap:10px}
+.toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px}.toolbar input{max-width:360px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:800px}th,td{text-align:left;padding:14px 16px;border-bottom:1px solid #eaecf0}th{background:#f8fafc;font-size:13px;color:#667085}td{font-size:14px}.actions{display:flex;gap:7px}.empty{text-align:center;padding:35px;color:#667085}
+.tag{padding:5px 9px;border-radius:20px;font-size:12px;font-weight:700}.pass{background:#dcfce7;color:#15803d}.fail{background:#fee2e2;color:#b91c1c}.message{display:none;margin-bottom:15px;padding:12px;border-radius:9px;font-weight:600}.message.ok{display:block;background:#dcfce7;color:#166534}.message.error{display:block;background:#fee2e2;color:#991b1b}
+.note{margin-top:15px;background:#eff6ff;padding:13px;border-radius:9px;color:#1e40af;font-size:13px}footer{text-align:center;color:#667085;padding:20px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}@media(max-width:500px){.grid{grid-template-columns:1fr}.toolbar{align-items:stretch;flex-direction:column}.toolbar input{max-width:none}}
+</style>
+</head>
+<body>
+<header><div class="container top"><div class="brand"><h1>Student Management System</h1><p>Full-stack student dashboard</p></div>
+<nav><button class="active" onclick="showSection('dashboard',this)">Dashboard</button><button onclick="showSection('students',this)">Students</button><button onclick="showSection('add',this)">Add Student</button></nav></div></header>
+<main class="container">
+<div id="message" class="message"></div>
+<section id="dashboard" class="section active"><div class="hero"><h2>Welcome 👋</h2><p>Manage student records using a FastAPI backend and SQLite database.</p></div>
+<div class="grid"><div class="card"><div class="label">Total Students</div><div class="value" id="total">0</div></div><div class="card"><div class="label">Average Marks</div><div class="value" id="average">0</div></div><div class="card"><div class="label">Passed</div><div class="value" id="passed">0</div></div><div class="card"><div class="label">Failed</div><div class="value" id="failed">0</div></div></div>
+<div class="form-card"><h3>Project Status</h3><p style="margin-top:10px;color:#667085;line-height:1.7">Frontend connected to the Student Management System API.</p><div class="note">Backend: FastAPI • Database: SQLite • Frontend: HTML, CSS & JavaScript</div></div></section>
+<section id="students" class="section"><div class="toolbar"><h2>Student Records</h2><input id="search" placeholder="Search by ID, name or course..." oninput="renderStudents()"></div>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Name</th><th>Course</th><th>Email</th><th>Marks</th><th>Result</th><th>Actions</th></tr></thead><tbody id="studentTable"></tbody></table></div></section>
+<section id="add" class="section"><div class="form-card"><h2 id="formTitle">Add New Student</h2><form id="studentForm"><div class="form-grid">
+<div><label>Student ID</label><input id="sid" type="number" required placeholder="e.g. 102"></div><div><label>Student Name</label><input id="name" required placeholder="e.g. Farhan Ali"></div>
+<div><label>Course / Class</label><input id="course" required placeholder="e.g. BTech CSE"></div><div><label>Email</label><input id="email" type="email" required placeholder="student@example.com"></div>
+<div><label>Marks (0-100)</label><input id="marks" type="number" min="0" max="100" required placeholder="e.g. 82"></div></div>
+<div class="form-actions"><button class="btn primary" type="submit" id="submitBtn">Add Student</button><button class="btn secondary" type="button" onclick="resetForm()">Clear</button></div></form></div></section>
+</main><footer>Student Management System • Full Stack Project</footer>
+<script>
+const API_URL="http://127.0.0.1:8000";let students=[];let editId=null;
+function showMessage(text,type="ok"){const b=document.getElementById("message");b.textContent=text;b.className="message "+type;setTimeout(()=>b.className="message",3500)}
+async function apiRequest(url,options={}){const r=await fetch(url,options);const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.detail||d.message||"Something went wrong");return d}
+async function loadStudents(){try{students=await apiRequest(API_URL+"/students");updateDashboard();renderStudents()}catch(e){showMessage("Backend connection failed: "+e.message,"error")}}
+function updateDashboard(){let total=students.length;let avg=total?(students.reduce((a,s)=>a+Number(s.marks),0)/total).toFixed(1):0;let passed=students.filter(s=>Number(s.marks)>=40).length;document.getElementById("total").textContent=total;document.getElementById("average").textContent=avg;document.getElementById("passed").textContent=passed;document.getElementById("failed").textContent=total-passed}
+function escapeHtml(t){return t.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function renderStudents(){let tbody=document.getElementById("studentTable"),q=(document.getElementById("search")?.value||"").toLowerCase().trim();let f=students.filter(s=>String(s.id).includes(q)||s.name.toLowerCase().includes(q)||s.course.toLowerCase().includes(q));if(!f.length){tbody.innerHTML='<tr><td colspan="7" class="empty">No student records found.</td></tr>';return}tbody.innerHTML=f.map(s=>{let p=Number(s.marks)>=40;return `<tr><td>${s.id}</td><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.course)}</td><td>${escapeHtml(s.email)}</td><td>${s.marks}</td><td><span class="tag ${p?"pass":"fail"}">${p?"PASS":"FAIL"}</span></td><td><div class="actions"><button class="btn secondary" onclick="editStudent(${s.id})">Edit</button><button class="btn danger" onclick="deleteStudent(${s.id})">Delete</button></div></td></tr>`}).join("")}
+document.getElementById("studentForm").addEventListener("submit",async e=>{e.preventDefault();let s={id:Number(document.getElementById("sid").value),name:document.getElementById("name").value.trim(),course:document.getElementById("course").value.trim(),email:document.getElementById("email").value.trim(),marks:Number(document.getElementById("marks").value)};try{if(editId===null){await apiRequest(API_URL+"/students",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(s)});showMessage("Student added successfully!")}else{await apiRequest(API_URL+"/students/"+editId,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(s)});showMessage("Student updated successfully!")}resetForm();await loadStudents();showSection("students",document.querySelectorAll("nav button")[1])}catch(err){showMessage(err.message,"error")}})
+function editStudent(id){let s=students.find(x=>x.id===id);if(!s)return;sid.value=s.id;name.value=s.name;course.value=s.course;email.value=s.email;marks.value=s.marks;editId=id;document.getElementById("formTitle").textContent="Edit Student";document.getElementById("submitBtn").textContent="Update Student";showSection("add",document.querySelectorAll("nav button")[2])}
+async function deleteStudent(id){if(!confirm("Delete this student record?"))return;try{await apiRequest(API_URL+"/students/"+id,{method:"DELETE"});showMessage("Student deleted successfully!");await loadStudents()}catch(e){showMessage(e.message,"error")}}
+function resetForm(){document.getElementById("studentForm").reset();editId=null;formTitle.textContent="Add New Student";submitBtn.textContent="Add Student"}
+function showSection(id,btn){document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");if(id==="students")renderStudents();window.scrollTo({top:0,behavior:"smooth"})}
+loadStudents();
+</script>
+</body>
+</html>
