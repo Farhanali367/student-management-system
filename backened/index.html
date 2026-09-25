@@ -35,7 +35,7 @@ input{width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:9px;font-si
 <div class="form-actions"><button class="btn primary" type="submit" id="submitBtn">Add Student</button><button class="btn secondary" type="button" onclick="resetForm()">Clear</button></div></form></div></section>
 </main><footer>Student Management System • Full Stack Project</footer>
 <script>
-const API_URL = "https://student-management-system-fcv9.onrender.com";let students=[];let editId=null;
+const API_URL = "https://student-management-system-api-b0q.onrender.com";let students=[];let editId=null;
 function showMessage(text,type="ok"){const b=document.getElementById("message");b.textContent=text;b.className="message "+type;setTimeout(()=>b.className="message",3500)}
 async function apiRequest(url,options={}){const r=await fetch(url,options);const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.detail||d.message||"Something went wrong");return d}
 async function loadStudents(){try{students=await apiRequest(API_URL+"/students");updateDashboard();renderStudents()}catch(e){showMessage("Backend connection failed: "+e.message,"error")}}
