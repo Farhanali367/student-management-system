@@ -8,10 +8,12 @@ app = FastAPI(title="Student Management System API")
 # Allow frontend to connect with backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://127.0.0.1:5500",
-        "http://localhost:5500","https://farhanali367.github.io",
-    ],
+allow_origins=[
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "https://farhanali367.github.io",
+    "https://student-management-system-1-oxhh.onrender.com",
+],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
